@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Response;
 use App\KhojTheSearch;
 use Auth;
 
@@ -28,11 +29,17 @@ class KhojTheSearchController extends Controller
 
     	if (in_array($request->search_values,$str_arr))
 		  {
-		  dd("matched");
+		  return Response::json(array(
+              'success' => true,
+              'message'   => 'found'
+            )); 
 		  }
 		else
 		  {
-		  dd("not matched");
+		  return Response::json(array(
+              'success' => false,
+              'message'   => 'not found'
+            )); 
 		  }
     }
 }

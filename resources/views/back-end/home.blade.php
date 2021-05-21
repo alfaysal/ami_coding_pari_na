@@ -67,6 +67,18 @@
                            </div>
                         </div>
                      </div>
+
+                     <div class="row" id="result_field">
+                        <div class="col-md-8">
+                           <div class="form-group">
+                              <label>Result</label>
+                              <input type="text" id="result"  class="form-control">
+                              <button onclick="reset()" class="btn btn-sm btn-primary">clear</button>
+                              <span class="badge badge-danger">{{ $errors->first('search_values') }}</span>
+                           </div>
+                        </div>
+                     </div>
+                     
                      <div class="row">
                         <div class="col-md-12">
                            <button type="submit" id="send_form" class="btn btn-block btn-success">Submit</button>
@@ -87,66 +99,86 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 <script>
-   if ($("#post-form").length > 0) {
-    //input_values validation which includes only number separated with comma
-    $.validator.addMethod("regex", function(value, element) {
-            return this.optional(element) || /^[0-9,]+$/i.test(value);
-        }, "Number is invalid: Please enter a number with comma whitespace not allowed.");
 
-    $("#post-form").validate({
-     // other validation rules for the input fields 
-    rules: {
-      input_values: {
-        required: true,
-        regex: "Required number"
-      },
-      search_values: {
-        required: true,
-        digits: true
-      }
-    },
-    //this message will appear when validation error occurs
-    messages: {
-      input_values: {
-        required: "Please Enter Input Values",
-      },
-      search_values: {
-        required: "Please Enter Search Values",
-      },
-    },
-    submitHandler: function(form) {
-      // this set up is for handling csrf token
-      $.ajaxSetup({
-            headers: {'X-CSRF-Token': '{{ csrf_token() }}'}
-        });
+  $( document ).ready(function() {
 
-        var adminUrl = '{{ url('khojthesearch') }}';
-      //get all input fields value from the form
-        function getInputs() {
-            var input_values = $('input[name="input_values"]').val()
-            var search_values = $('input[name="search_values"]').val()
-            return {input_values: input_values, search_values: search_values}
-        }
-      // sending the request to the route then call the controller for further action
-            $.ajax({
-                method: 'POST',
-                url: adminUrl + '/find',
-                data: getInputs(),
-                dataType: 'JSON',
-                success: function () {
-                
+      $("#result_field").hide();
 
 
-                },
-                // give feedback when error occurs
-               error: function (error) {
-                    console.log(error);
-                }
-            })
+      if ($("#post-form").length > 0) {
+        //input_values validation which includes only number separated with comma
+        $.validator.addMethod("regex", function(value, element) {
+                return this.optional(element) || /^[0-9,]+$/i.test(value);
+            }, "Number is invalid: Please enter a number with comma whitespace not allowed.");
 
-      }
-  })
-}
+        $("#post-form").validate({
+         // other validation rules for the input fields 
+        rules: {
+          input_values: {
+            required: true,
+            regex: "Required number"
+          },
+          search_values: {
+            required: true,
+            digits: true
+          }
+        },
+        //this message will appear when validation error occurs
+        messages: {
+          input_values: {
+            required: "Please Enter Input Values",
+          },
+          search_values: {
+            required: "Please Enter Search Values",
+          },
+        },
+        submitHandler: function(form) {
+          // this set up is for handling csrf token
+          $.ajaxSetup({
+                headers: {'X-CSRF-Token': '{{ csrf_token() }}'}
+            });
+
+            var adminUrl = '{{ url('khojthesearch') }}';
+          //get all input fields value from the form
+            function getInputs() {
+                var input_values = $('input[name="input_values"]').val()
+                var search_values = $('input[name="search_values"]').val()
+                return {input_values: input_values, search_values: search_values}
+            }
+          // sending the request to the route then call the controller for further action
+                $.ajax({
+                    method: 'POST',
+                    url: adminUrl + '/find',
+                    data: getInputs(),
+                    dataType: 'JSON',
+                    success: function (data) {
+
+                    $("#result_field").show();
+                    $("#result_field").find('input').val(data['success']);
+                   
+
+                    },
+          // give feedback when error occurs
+                   error: function (error) {
+                        console.log(error);
+                    }
+                })
+
+            function reset() {
+               $('#post-form').find('input').each(function () {
+                    $(this).val(null)
+                })
+
+            }
+
+          }
+      })
+    }
+
+
+});
+
+   
 </script>
 
 @endsection
