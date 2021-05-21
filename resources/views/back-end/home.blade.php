@@ -88,13 +88,13 @@
 
 <script>
    if ($("#post-form").length > 0) {
-
+    //input_values validation which includes only number separated with comma
     $.validator.addMethod("regex", function(value, element) {
-            return this.optional(element) || /^(\d+|\d+,\d{1,2})$/i.test(value);
-        }, "Number is invalid: Please enter a valid number.");
+            return this.optional(element) || /^[0-9,]+$/i.test(value);
+        }, "Number is invalid: Please enter a number with comma whitespace not allowed.");
 
     $("#post-form").validate({
-     // validation rules for the input fields 
+     // other validation rules for the input fields 
     rules: {
       input_values: {
         required: true,
