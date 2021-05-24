@@ -7,6 +7,7 @@ use App\User;
 use Response;
 use App\KhojTheSearch;
 use Auth;
+use DB;
 
 class KhojTheSearchController extends Controller
 {
@@ -42,4 +43,8 @@ class KhojTheSearchController extends Controller
             )); 
 		  }
     }
+
+  
+
+
 }
