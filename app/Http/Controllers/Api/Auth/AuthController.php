@@ -33,7 +33,7 @@ class AuthController extends Controller
         ]);
     }
 
-    // logout 
+    // for logging out a authenticated user 
     public function logout()
     {
         Auth::logout();
