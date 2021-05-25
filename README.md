@@ -114,7 +114,7 @@ The api can now be accessed at
 
     http://localhost:8000/api/khoj
     
-The token can now be refresh at
+The token can be refresh at
 
     http://localhost:8000/api/refresh
 
