@@ -124,11 +124,11 @@ The user can now be logout at
 
 Request headers
 
-| **Required** 	| **Key**              	| **Value**            	|
+| **Required** 	|**Type **| **Key**              	| **Value**            	|
 |----------	|------------------	|------------------	|
-| Param      	| start_datetime,end_datetime,user_id     	| bearer token 	|
-| Authorization      	| email,password	| XMLHttpRequest   	|
-| Refresh ,Logout     	| bearer token	|   	|
+| Param      	| POST |start_datetime,end_datetime,user_id     	| bearer token 	|
+| Authorization      	| POST |email,password	| XMLHttpRequest   	|
+| Refresh ,Logout     	| POST |bearer token	|   	|
 
 
 # Authentication
