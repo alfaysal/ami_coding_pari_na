@@ -126,9 +126,9 @@ Request headers
 
 |"" ""	|"" "" |""""	|""""	|
 |----------	|-------- |------------------	|------------------	|
-| Param      	| POST |start_datetime,end_datetime,user_id     	| bearer token 	|
-| Authorization      	| POST |email,password	| XMLHttpRequest   	|
-| Refresh ,Logout     	| POST |bearer token	|   	|
+| Parameter for api     	|method: POST |parameter: start_datetime,end_datetime,user_id     	| authentication: bearer token 	|
+| Authorization      	|method: POST |body : email,password	|    	|
+| Refresh ,Logout     	| POST |	|   authentication: bearer token	|
 
 
 # Authentication
